@@ -27,6 +27,7 @@ target/
 /nbdist/
 /.nb-gradle/
 /thymeleaf-bootstrap-datetime-picker.iml
+/thymeleaf-bootstrap-select-option.iml
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
