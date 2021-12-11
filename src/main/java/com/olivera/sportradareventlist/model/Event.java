@@ -1,5 +1,7 @@
 package com.olivera.sportradareventlist.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,11 +15,12 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-    private Date dateTime;
+    @DateTimeFormat(pattern = "dd/MM/yyyy h:mm a")
+    private Date date;
 
     @Column(name = "sport")
-    private String sport;
+    @Enumerated(EnumType.STRING)
+    private Sport sport;
 
     @Column(name = "team")
     private String team;
@@ -26,8 +29,8 @@ public class Event {
 
     }
 
-    public Event(Date dateTime, String sport, String team) {
-        this.dateTime = dateTime;
+    public Event(Date date, Sport sport, String team) {
+        this.date = date;
         this.sport = sport;
         this.team = team;
     }
@@ -40,19 +43,19 @@ public class Event {
         this.id = id;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getSport() {
+    public Sport getSport() {
         return sport;
     }
 
-    public void setSport(String sport) {
+    public void setSport(Sport sport) {
         this.sport = sport;
     }
 

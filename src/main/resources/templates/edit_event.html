@@ -7,6 +7,11 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -36,25 +41,37 @@
             <div class = "card-body">
                 <form th:action="@{/events/{id} (id=${event.id})}" th:object = "${event}" method="POST">
                     <div class ="form-group">
-                        <label> Date and Time </label>
-                        <input
-                                type = "text"
-                                name = "dateTime"
-                                th:field = "*{dateTime}"
-                                class = "form-control"
-                                placeholder="Enter Date and Time"
-                        />
+                        <label for="date"> Date and Time </label>
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input
+                                    type = "text"
+                                    name = "dateTime"
+                                    th:field = "*{date}"
+                                    class = "form-control datetimepicker-input"
+                                    data-target="#datetimepicker1"
+                                    id="date"
+                                    placeholder="Enter Date and Time"
+                            />
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class ="form-group">
-                        <label> Event Sport </label>
-                        <input
+                        <label for="sport"> Event Sport </label>
+                        <select class="form-control selectpicker" th:field="*{sport}" id="sport">
+                            <option value="">Nothing selected</option>
+                            <option
                                 type = "text"
                                 name = "sport"
-                                th:field = "*{sport}"
+                                th:each="sport :  ${T(com.olivera.sportradareventlist.model.Sport).values()}"
+                                th:value = "${sport}"
+                                th:text="${sport}"
                                 class = "form-control"
-                                placeholder="Enter Sport"
-                        />
+                                placeholder="Enter Sport">sport
+                        </option>
+                        </select>
                     </div>
 
                     <div class ="form-group">
@@ -79,5 +96,31 @@
         </div>
     </div>
 </div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/moment/moment.min.js}"></script>
+<script th:src="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js}"></script>
+<script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+<script>
+    $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        } });
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY h:mm A'
+    });
+</script>
+
 </body>
 </html>

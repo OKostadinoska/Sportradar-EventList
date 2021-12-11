@@ -53,7 +53,7 @@ public class EventController {
         //get event from database by id
         Event existingEvent = eventService.getEventById(id);
         existingEvent.setId(id);
-        existingEvent.setDateTime(event.getDateTime());
+        existingEvent.setDate(event.getDate());
         existingEvent.setSport(event.getSport());
         existingEvent.setTeam(event.getTeam());
 

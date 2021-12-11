@@ -7,10 +7,14 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <!-- Brand -->
+    <!-- Events -->
     <a class="navbar-brand" href="#">Events List</a>
 
     <!-- Toggler/collapsibe Button -->
@@ -50,8 +54,8 @@
 
         <tbody>
         <tr th:each = "event: ${events}">
-            <td th:text = "${event.dateTime}"></td>
-            <td th:text = "${event.sport}"></td>
+            <td th:text = "${#dates.format(event.date, 'dd/MM/yyyy h:mm a')}"></td>
+            <td class="mt-5" th:text = "${event.sport}"></td>
             <td th:text = "${event.team}"></td>
             <td>
                 <a th:href = "@{/events/edit/{id}(id=${event.id})}"
